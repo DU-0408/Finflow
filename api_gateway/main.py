@@ -1,0 +1,183 @@
+from __future__ import annotations
+
+import logging
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
+from prometheus_client import make_asgi_app
+from dotenv import load_dotenv
+
+from generator.models import Transaction
+from generator.db     import DatabaseManager
+from generator.cache  import CacheManager
+from generator.factory import TransactionFactory
+from .middleware import LoggingMiddleware
+from .pipeline  import TransactionPipeline
+
+load_dotenv()
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logger = logging.getLogger(__name__)
+
+# ── Shared instances ──────────────────────────────────────────────────────────
+db      = DatabaseManager()
+cache   = CacheManager()
+factory = TransactionFactory()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    logger.info("Connecting to PostgreSQL and Redis...")
+    db.connect()
+    db.create_tables()
+    logger.info("API Gateway ready.")
+    yield
+    # Shutdown
+    db.disconnect()
+    logger.info("API Gateway shut down.")
+
+
+app = FastAPI(
+    title="FinFlow API Gateway",
+    description="Single entry point for the FinFlow banking transaction pipeline",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+app.add_middleware(LoggingMiddleware)
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+metrics_app = make_asgi_app()
+app.mount("/metrics", metrics_app)
+
+
+# ── Health ────────────────────────────────────────────────────────────────────
+
+@app.get("/health")
+def health():
+    return {
+        "status":   "ok",
+        "service":  "api_gateway",
+        "postgres": db.conn is not None and not db.conn.closed,
+        "redis":    cache.ping(),
+    }
+
+
+# ── Transactions ──────────────────────────────────────────────────────────────
+
+@app.post("/transactions")
+def submit_transaction(tx: Transaction):
+    """Submit a single transaction through the full pipeline."""
+    pipeline = TransactionPipeline(db, cache)
+    result   = pipeline.process(tx)
+    return result
+
+
+@app.post("/transactions/batch")
+def submit_batch(transactions: list[Transaction]):
+    """Submit a batch of transactions. Max 1000 per call."""
+    if len(transactions) > 1000:
+        raise HTTPException(status_code=400, detail="Max 1000 transactions per batch")
+
+    pipeline = TransactionPipeline(db, cache)
+    results  = {
+        "total":     len(transactions),
+        "processed": 0,
+        "duplicates": 0,
+        "errors":    0,
+        "flagged":   0,
+    }
+
+    for tx in transactions:
+        result = pipeline.process(tx)
+        if result["status"] == "processed":
+            results["processed"] += 1
+            if result.get("fraud_analysis", {}).get("is_suspicious"):
+                results["flagged"] += 1
+        elif result["status"] == "duplicate":
+            results["duplicates"] += 1
+        else:
+            results["errors"] += 1
+
+    return results
+
+
+@app.get("/transactions")
+def get_transactions(
+    limit:  int = Query(default=50,  ge=1, le=500),
+    offset: int = Query(default=0,   ge=0),
+):
+    """Paginated list of all transactions."""
+    rows = db.get_transactions(limit=limit, offset=offset)
+    return {
+        "limit":        limit,
+        "offset":       offset,
+        "count":        len(rows),
+        "transactions": [dict(r) for r in rows],
+    }
+
+
+@app.get("/transactions/{transaction_id}")
+def get_transaction(transaction_id: str):
+    """Fetch a single transaction by ID."""
+    row = db.get_transaction_by_id(transaction_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    return dict(row)
+
+
+@app.get("/fraud-alerts")
+def get_fraud_alerts(limit: int = Query(default=50, ge=1, le=500)):
+    """List all fraud alerts."""
+    rows = db.get_fraud_alerts(limit=limit)
+    return {
+        "count":  len(rows),
+        "alerts": [dict(r) for r in rows],
+    }
+
+
+@app.get("/stats")
+def get_stats():
+    """Pipeline statistics from PostgreSQL."""
+    return db.get_stats()
+
+
+# ── Simulation endpoint (for demos) ──────────────────────────────────────────
+
+@app.post("/simulate")
+def simulate(
+    count:      int   = Query(default=10,   ge=1,   le=500),
+    fraud_rate: float = Query(default=0.1,  ge=0.0, le=1.0),
+):
+    """
+    Generate and process synthetic transactions.
+    Perfect for demos — no external data source needed.
+    """
+    sim_factory = TransactionFactory(fraud_rate=fraud_rate)
+    pipeline    = TransactionPipeline(db, cache)
+
+    results = {
+        "total":     count,
+        "processed": 0,
+        "flagged":   0,
+        "errors":    0,
+    }
+
+    for _ in range(count):
+        tx     = sim_factory.generate()
+        result = pipeline.process(tx)
+
+        if result["status"] == "processed":
+            results["processed"] += 1
+            if result.get("fraud_analysis", {}).get("is_suspicious"):
+                results["flagged"] += 1
+        else:
+            results["errors"] += 1
+
+    results["fraud_rate_actual"] = (
+        round(results["flagged"] / results["processed"] * 100, 1)
+        if results["processed"] > 0 else 0
+    )
+
+    return results
