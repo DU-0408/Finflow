@@ -144,8 +144,11 @@ def run_local(factory, producer, tps: int, duration: int | None):
         producer.send(tx)
 
         total += 1
+        TRANSACTIONS_TOTAL.inc()
+
         if tx.is_suspicious:
             fraud += 1
+            FRAUD_TOTAL.inc()
 
         time.sleep(interval)
 
