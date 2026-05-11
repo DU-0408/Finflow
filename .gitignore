@@ -19,4 +19,5 @@ infrastructure/terraform/.terraform.lock.hcl
 
 # IDE
 .vscode/
-.idea/
+.idea/infrastructure/terraform/terraform.tfvars
+infrastructure/terraform/lambda_src.zip
