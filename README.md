@@ -50,6 +50,8 @@ API Gateway (:8000)
 | generator metrics | 8003 | Prometheus metrics for the generator |
 | PostgreSQL | 5432 | Transaction ledger + fraud alerts |
 | Redis | 6379 | Deduplication cache + velocity tracking |
+| Prometheus | 9090 | Metrics store |
+| Grafana    | 3000 | Dashboards    |
 
 ---
 
@@ -141,6 +143,39 @@ Expected:
   "postgres": true,
   "redis": true
 }
+```
+
+---
+
+## k3s Homelab Deployment
+
+Access via homelab IP:
+
+```bash
+curl http://Homelab_IP:PORT/health
+curl -X POST "http://Homelab_IP:PORT/simulate?count=20&fraud_rate=0.2"
+curl http://Homelab_IP:PORT/stats
+```
+
+| Service | NodePort |
+|---|---|
+| API Gateway | 30800 |
+| Prometheus | 30909 |
+| Grafana | 30300 |
+
+---
+
+## AWS Deployment
+
+```bash
+# Stream transactions to Kinesis → Lambda → S3
+python -m generator.main --mode stream --tps 5 --duration 30
+
+# Check Lambda logs
+aws logs tail /aws/lambda/finflow-transaction-processor --follow
+
+# Check S3 data lake
+aws s3 ls s3://finflow-data-lake-<your-account-id>/transactions/ --recursive
 ```
 
 ---
@@ -303,9 +338,9 @@ Key variables:
 - [x] REST API gateway with full pipeline orchestration
 - [x] PostgreSQL persistence (transactions + fraud alerts)
 - [x] Redis deduplication + velocity tracking
-- [ ] AWS infrastructure via Terraform (Kinesis, Lambda, S3, SNS)
-- [ ] Prometheus + Grafana monitoring dashboards
-- [ ] k3s deployment on homelab
+- [x] AWS infrastructure via Terraform (Kinesis, Lambda, S3, SNS)
+- [x] Prometheus + Grafana monitoring dashboards
+- [x] k3s deployment on homelab
 - [ ] GitHub Actions CI/CD pipeline
 - [ ] pytest test suite
 
