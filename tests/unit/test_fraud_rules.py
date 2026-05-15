@@ -1,6 +1,5 @@
 """Unit tests for all 7 fraud detection rules."""
 import pytest
-from unittest.mock import patch, MagicMock
 from generator.factory import TransactionFactory
 from fraud_service.rules import FraudRuleEngine
 

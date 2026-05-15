@@ -1,6 +1,5 @@
 """Unit tests for Pydantic data models."""
 import pytest
-from decimal import Decimal
 from generator.models import (
     Transaction, TransactionType, TransactionStatus,
     MerchantCategory, GeoLocation,

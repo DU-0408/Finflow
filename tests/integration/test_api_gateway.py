@@ -13,8 +13,10 @@ def mock_http():
                 def raise_for_status(self): pass
             if "analyze" in url:
                 data = kwargs.get("content") or kwargs.get("json")
-                if isinstance(data, str): data = json.loads(data)
-                elif isinstance(data, bytes): data = json.loads(data.decode())
+                if isinstance(data, str):
+                    data = json.loads(data)
+                elif isinstance(data, bytes):
+                    data = json.loads(data.decode())
                 if isinstance(data, list):
                     res = []
                     for tx in data:
