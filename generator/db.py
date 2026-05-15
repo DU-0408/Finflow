@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import os
 import logging
-from datetime import datetime
+
 
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 
-from .models import Transaction, TransactionStatus
+from .models import Transaction
 
 load_dotenv()
 logger = logging.getLogger(__name__)
