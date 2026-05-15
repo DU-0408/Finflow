@@ -1,0 +1,136 @@
+name: FinFlow CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  DOCKER_USERNAME: du0408
+
+jobs:
+  # ─────────────────────────────────────────
+  # CI — Lint + Test (GitHub-hosted)
+  # ─────────────────────────────────────────
+  ci:
+    name: CI — Lint & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint with ruff
+        run: |
+          pip install ruff
+          ruff check .
+
+      - name: Run tests
+        run: |
+          pip install pytest
+          pytest tests/ -v --tb=short
+        continue-on-error: true  # Remove once Phase 11 tests are written
+
+  # ─────────────────────────────────────────
+  # Build & Push — Docker Hub (GitHub-hosted)
+  # ─────────────────────────────────────────
+  build:
+    name: Build & Push Images
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    strategy:
+      matrix:
+        service:
+          - name: finflow-generator
+            dockerfile: generator/Dockerfile
+          - name: finflow-api-gateway
+            dockerfile: api_gateway/Dockerfile
+          - name: finflow-fraud-service
+            dockerfile: fraud_service/Dockerfile
+          - name: finflow-notification-service
+            dockerfile: notification_service/Dockerfile
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push ${{ matrix.service.name }}
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.service.dockerfile }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            du0408/${{ matrix.service.name }}:latest
+            du0408/${{ matrix.service.name }}:${{ github.sha }}
+          cache-from: type=gha,scope=${{ matrix.service.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service.name }}
+
+  # ─────────────────────────────────────────
+  # CD — Deploy to k3s (self-hosted runner)
+  # ─────────────────────────────────────────
+  deploy:
+    name: Deploy to k3s
+    runs-on: [self-hosted, linux, x64, kubernetes]
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Roll out generator
+        run: |
+          kubectl set image deployment/generator \
+            generator=du0408/finflow-generator:${{ github.sha }} \
+            -n finflow
+          kubectl rollout status deployment/generator -n finflow --timeout=120s
+
+      - name: Roll out api-gateway
+        run: |
+          kubectl set image deployment/api-gateway \
+            api-gateway=du0408/finflow-api-gateway:${{ github.sha }} \
+            -n finflow
+          kubectl rollout status deployment/api-gateway -n finflow --timeout=120s
+
+      - name: Roll out fraud-service
+        run: |
+          kubectl set image deployment/fraud-service \
+            fraud-service=du0408/finflow-fraud-service:${{ github.sha }} \
+            -n finflow
+          kubectl rollout status deployment/fraud-service -n finflow --timeout=120s
+
+      - name: Roll out notification-service
+        run: |
+          kubectl set image deployment/notification-service \
+            notification-service=du0408/finflow-notification-service:${{ github.sha }} \
+            -n finflow
+          kubectl rollout status deployment/notification-service -n finflow --timeout=120s
+
+      - name: Verify all pods healthy
+        run: kubectl get pods -n finflow
