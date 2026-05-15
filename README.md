@@ -342,7 +342,7 @@ Key variables:
 - [x] Prometheus + Grafana monitoring dashboards
 - [x] k3s deployment on homelab
 - [x] GitHub Actions CI/CD pipeline
-- [ ] pytest test suite
+- [x] pytest test suite
 
 ---
 
