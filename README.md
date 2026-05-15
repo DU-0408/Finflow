@@ -341,7 +341,7 @@ Key variables:
 - [x] AWS infrastructure via Terraform (Kinesis, Lambda, S3, SNS)
 - [x] Prometheus + Grafana monitoring dashboards
 - [x] k3s deployment on homelab
-- [ ] GitHub Actions CI/CD pipeline
+- [x] GitHub Actions CI/CD pipeline
 - [ ] pytest test suite
 
 ---

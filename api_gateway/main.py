@@ -104,7 +104,7 @@ def submit_transaction(tx: Transaction):
 def submit_batch(transactions: list[Transaction]):
     """Submit a batch of transactions. Max 1000 per call."""
     if len(transactions) > 1000:
-        raise HTTPException(status_code=400, detail="Max 1000 transactions per batch")
+        raise HTTPException(status_code=422, detail="Max 1000 transactions per batch")
 
     pipeline = TransactionPipeline(db, cache)
     results  = {
@@ -119,7 +119,8 @@ def submit_batch(transactions: list[Transaction]):
         result = pipeline.process(tx)
         if result["status"] == "processed":
             results["processed"] += 1
-            if result.get("fraud_analysis", {}).get("is_suspicious"):
+            fa = result.get("fraud_analysis")
+            if fa and fa.get("is_suspicious"):
                 results["flagged"] += 1
         elif result["status"] == "duplicate":
             results["duplicates"] += 1
@@ -196,7 +197,8 @@ def simulate(
 
         if result["status"] == "processed":
             results["processed"] += 1
-            if result.get("fraud_analysis", {}).get("is_suspicious"):
+            fa = result.get("fraud_analysis")
+            if fa and fa.get("is_suspicious"):
                 results["flagged"] += 1
         else:
             results["errors"] += 1

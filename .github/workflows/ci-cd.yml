@@ -39,7 +39,6 @@ jobs:
         run: |
           pip install pytest
           pytest tests/ -v --tb=short
-        continue-on-error: true  # Remove once Phase 11 tests are written
 
   # ─────────────────────────────────────────
   # Build & Push — Docker Hub (GitHub-hosted)

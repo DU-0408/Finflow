@@ -1,0 +1,1587 @@
+(venv) devanshupadhyay@Devanshs-MacBook-Pro FinFlow % pytest
+================================================= test session starts ==================================================
+platform darwin -- Python 3.12.8, pytest-7.4.4, pluggy-1.6.0 -- /Users/devanshupadhyay/PDs/Workspace/Repos/FinFlow/venv/bin/python3.12
+cachedir: .pytest_cache
+rootdir: /Users/devanshupadhyay/PDs/Workspace/Repos/FinFlow
+configfile: pytest.ini
+testpaths: tests
+plugins: Faker-22.0.0, anyio-4.13.0
+collected 121 items                                                                                                    
+
+tests/integration/test_api_gateway.py::TestGatewayHealth::test_health_returns_ok ERROR                           [  0%]
+tests/integration/test_api_gateway.py::TestSingleTransaction::test_post_transaction_returns_200 ERROR            [  1%]
+tests/integration/test_api_gateway.py::TestSingleTransaction::test_post_transaction_response_has_pipeline_fields ERROR [  2%]
+tests/integration/test_api_gateway.py::TestSingleTransaction::test_duplicate_transaction_rejected ERROR          [  3%]
+tests/integration/test_api_gateway.py::TestSingleTransaction::test_fraud_transaction_flagged ERROR               [  4%]
+tests/integration/test_api_gateway.py::TestSingleTransaction::test_invalid_payload_returns_422 ERROR             [  4%]
+tests/integration/test_api_gateway.py::TestBatchTransactions::test_batch_post_returns_200 ERROR                  [  5%]
+tests/integration/test_api_gateway.py::TestBatchTransactions::test_batch_response_count_matches ERROR            [  6%]
+tests/integration/test_api_gateway.py::TestBatchTransactions::test_batch_exceeding_limit_returns_422 ERROR       [  7%]
+tests/integration/test_api_gateway.py::TestGetTransactions::test_get_transactions_returns_list ERROR             [  8%]
+tests/integration/test_api_gateway.py::TestGetTransactions::test_get_transactions_respects_limit ERROR           [  9%]
+tests/integration/test_api_gateway.py::TestGetTransactions::test_get_transaction_by_id ERROR                     [  9%]
+tests/integration/test_api_gateway.py::TestGetTransactions::test_get_nonexistent_transaction_returns_404 ERROR   [ 10%]
+tests/integration/test_api_gateway.py::TestFraudAlerts::test_get_fraud_alerts_returns_list ERROR                 [ 11%]
+tests/integration/test_api_gateway.py::TestFraudAlerts::test_fraud_alert_created_after_flagged_transaction ERROR [ 12%]
+tests/integration/test_api_gateway.py::TestStats::test_stats_returns_200 ERROR                                   [ 13%]
+tests/integration/test_api_gateway.py::TestStats::test_stats_has_required_fields ERROR                           [ 14%]
+tests/integration/test_api_gateway.py::TestSimulate::test_simulate_endpoint_returns_200 ERROR                    [ 14%]
+tests/integration/test_api_gateway.py::TestSimulate::test_simulate_processes_correct_count ERROR                 [ 15%]
+tests/integration/test_api_gateway.py::TestGatewayMetrics::test_metrics_endpoint_returns_200 ERROR               [ 16%]
+tests/integration/test_api_gateway.py::TestGatewayMetrics::test_metrics_contains_api_counter ERROR               [ 17%]
+tests/integration/test_fraud_service.py::TestFraudServiceHealth::test_health_returns_ok ERROR                    [ 18%]
+tests/integration/test_fraud_service.py::TestFraudServiceHealth::test_health_shows_redis_connected ERROR         [ 19%]
+tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_clean_transaction ERROR               [ 19%]
+tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_geo_anomaly_blocked ERROR             [ 20%]
+tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_high_value_reviewed ERROR             [ 21%]
+tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_card_testing_blocked ERROR            [ 22%]
+tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_invalid_payload_returns_422 ERROR     [ 23%]
+tests/integration/test_fraud_service.py::TestAnalyzeBatchEndpoint::test_batch_analyze_returns_results ERROR      [ 23%]
+tests/integration/test_fraud_service.py::TestAnalyzeBatchEndpoint::test_batch_each_result_has_required_fields ERROR [ 24%]
+tests/integration/test_fraud_service.py::TestAnalyzeBatchEndpoint::test_batch_exceeding_limit_returns_422 ERROR  [ 25%]
+tests/integration/test_fraud_service.py::TestFraudMetrics::test_metrics_endpoint_returns_200 ERROR               [ 26%]
+tests/integration/test_fraud_service.py::TestFraudMetrics::test_metrics_contains_fraud_counter ERROR             [ 27%]
+tests/integration/test_notification_service.py::TestNotificationHealth::test_health_returns_ok ERROR             [ 28%]
+tests/integration/test_notification_service.py::TestNotificationHealth::test_health_shows_mock_notifier ERROR    [ 28%]
+tests/integration/test_notification_service.py::TestFraudAlert::test_fraud_alert_returns_200 ERROR               [ 29%]
+tests/integration/test_notification_service.py::TestFraudAlert::test_fraud_alert_response_structure ERROR        [ 30%]
+tests/integration/test_notification_service.py::TestFraudAlert::test_fraud_alert_missing_fields_returns_422 ERROR [ 31%]
+tests/integration/test_notification_service.py::TestHighValueAlert::test_high_value_alert_returns_200 ERROR      [ 32%]
+tests/integration/test_notification_service.py::TestHighValueAlert::test_high_value_alert_response_structure ERROR [ 33%]
+tests/integration/test_notification_service.py::TestBatchAlerts::test_batch_alerts_returns_200 ERROR             [ 33%]
+tests/integration/test_notification_service.py::TestBatchAlerts::test_batch_exceeding_limit_returns_422 ERROR    [ 34%]
+tests/integration/test_notification_service.py::TestNotificationMetrics::test_metrics_endpoint_returns_200 ERROR [ 35%]
+tests/unit/test_cache.py::TestDeduplication::test_new_transaction_not_duplicate ERROR                            [ 36%]
+tests/unit/test_cache.py::TestDeduplication::test_seen_transaction_is_duplicate ERROR                            [ 37%]
+tests/unit/test_cache.py::TestDeduplication::test_different_transactions_not_duplicate ERROR                     [ 38%]
+tests/unit/test_cache.py::TestDeduplication::test_mark_seen_sets_ttl ERROR                                       [ 38%]
+tests/unit/test_cache.py::TestVelocityTracking::test_initial_velocity_is_zero ERROR                              [ 39%]
+tests/unit/test_cache.py::TestVelocityTracking::test_increment_velocity ERROR                                    [ 40%]
+tests/unit/test_cache.py::TestVelocityTracking::test_multiple_increments ERROR                                   [ 41%]
+tests/unit/test_cache.py::TestVelocityTracking::test_is_high_velocity_false_below_limit ERROR                    [ 42%]
+tests/unit/test_cache.py::TestVelocityTracking::test_is_high_velocity_true_above_limit ERROR                     [ 42%]
+tests/unit/test_cache.py::TestVelocityTracking::test_velocity_isolated_per_account ERROR                         [ 43%]
+tests/unit/test_db.py::TestDatabaseConnection::test_connect_succeeds ERROR                                       [ 44%]
+tests/unit/test_db.py::TestDatabaseConnection::test_tables_exist ERROR                                           [ 45%]
+tests/unit/test_db.py::TestInsertTransaction::test_insert_single_transaction ERROR                               [ 46%]
+tests/unit/test_db.py::TestInsertTransaction::test_inserted_transaction_fields ERROR                             [ 47%]
+tests/unit/test_db.py::TestInsertTransaction::test_insert_multiple_transactions ERROR                            [ 47%]
+tests/unit/test_db.py::TestInsertTransaction::test_get_transactions_respects_limit ERROR                         [ 48%]
+tests/unit/test_db.py::TestFraudAlerts::test_insert_fraud_alert ERROR                                            [ 49%]
+tests/unit/test_db.py::TestFraudAlerts::test_fraud_alert_fields ERROR                                            [ 50%]
+tests/unit/test_db.py::TestFraudAlerts::test_multiple_fraud_alerts ERROR                                         [ 51%]
+tests/unit/test_db.py::TestStats::test_stats_empty_db ERROR                                                      [ 52%]
+tests/unit/test_db.py::TestStats::test_stats_after_inserts ERROR                                                 [ 52%]
+tests/unit/test_db.py::TestStats::test_stats_fraud_count ERROR                                                   [ 53%]
+tests/unit/test_factory.py::TestAccountPool::test_generates_500_accounts ERROR                                   [ 54%]
+tests/unit/test_factory.py::TestAccountPool::test_accounts_have_required_fields ERROR                            [ 55%]
+tests/unit/test_factory.py::TestAccountPool::test_risk_profiles_are_valid ERROR                                  [ 56%]
+tests/unit/test_factory.py::TestAccountPool::test_random_account_returns_dict ERROR                              [ 57%]
+tests/unit/test_factory.py::TestTransactionFactory::test_generate_returns_transaction ERROR                      [ 57%]
+tests/unit/test_factory.py::TestTransactionFactory::test_generate_batch_returns_correct_count ERROR              [ 58%]
+tests/unit/test_factory.py::TestTransactionFactory::test_all_batch_items_are_transactions ERROR                  [ 59%]
+tests/unit/test_factory.py::TestTransactionFactory::test_transaction_ids_are_unique ERROR                        [ 60%]
+tests/unit/test_factory.py::TestTransactionFactory::test_force_fraud_sets_suspicious ERROR                       [ 61%]
+tests/unit/test_factory.py::TestTransactionFactory::test_zero_fraud_rate_no_suspicious ERROR                     [ 61%]
+tests/unit/test_factory.py::TestTransactionFactory::test_amounts_are_positive ERROR                              [ 62%]
+tests/unit/test_factory.py::TestTransactionFactory::test_indian_currency_default ERROR                           [ 63%]
+tests/unit/test_factory.py::TestTransactionFactory::test_transaction_types_are_valid ERROR                       [ 64%]
+tests/unit/test_factory.py::TestTransactionFactory::test_fraud_patterns_high_value ERROR                         [ 65%]
+tests/unit/test_factory.py::TestTransactionFactory::test_fraud_patterns_geo_anomaly ERROR                        [ 66%]
+tests/unit/test_factory.py::TestTransactionFactory::test_fraud_patterns_card_testing ERROR                       [ 66%]
+tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_triggers_above_threshold ERROR                [ 67%]
+tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_no_trigger_below_threshold ERROR              [ 68%]
+tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_exactly_at_threshold ERROR                    [ 69%]
+tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_just_above_threshold ERROR                    [ 70%]
+tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_nigeria_triggers ERROR                      [ 71%]
+tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_romania_triggers ERROR                      [ 71%]
+tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_india_no_trigger ERROR                      [ 72%]
+tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_usa_no_trigger ERROR                        [ 73%]
+tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_triggers_small_online ERROR               [ 74%]
+tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_no_trigger_large_amount ERROR             [ 75%]
+tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_no_trigger_non_online ERROR               [ 76%]
+tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_boundary_amount ERROR                     [ 76%]
+tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_triggers_at_2am ERROR                           [ 77%]
+tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_no_trigger_at_noon ERROR                        [ 78%]
+tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_boundary_1am ERROR                              [ 79%]
+tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_boundary_4am ERROR                              [ 80%]
+tests/unit/test_fraud_rules.py::TestInternationalHighAmountRule::test_international_high_amount_triggers ERROR   [ 80%]
+tests/unit/test_fraud_rules.py::TestInternationalHighAmountRule::test_international_low_amount_no_trigger ERROR  [ 81%]
+tests/unit/test_fraud_rules.py::TestInternationalHighAmountRule::test_domestic_high_amount_no_trigger ERROR      [ 82%]
+tests/unit/test_fraud_rules.py::TestRefundAbuseRule::test_refund_abuse_triggers ERROR                            [ 83%]
+tests/unit/test_fraud_rules.py::TestRefundAbuseRule::test_refund_small_amount_no_trigger ERROR                   [ 84%]
+tests/unit/test_fraud_rules.py::TestRefundAbuseRule::test_non_refund_no_trigger ERROR                            [ 85%]
+tests/unit/test_fraud_rules.py::TestVelocityRule::test_high_velocity_triggers ERROR                              [ 85%]
+tests/unit/test_fraud_rules.py::TestVelocityRule::test_normal_velocity_no_trigger ERROR                          [ 86%]
+tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_returns_block_for_geo_anomaly ERROR                    [ 87%]
+tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_returns_approve_for_clean_tx ERROR                     [ 88%]
+tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_returns_review_for_mid_score ERROR                     [ 89%]
+tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_score_is_max_of_all_rules ERROR                        [ 90%]
+tests/unit/test_models.py::TestGeoLocation::test_valid_geolocation ERROR                                         [ 90%]
+tests/unit/test_models.py::TestGeoLocation::test_lat_lon_are_floats ERROR                                        [ 91%]
+tests/unit/test_models.py::TestTransactionEnums::test_transaction_types ERROR                                    [ 92%]
+tests/unit/test_models.py::TestTransactionEnums::test_transaction_statuses ERROR                                 [ 93%]
+tests/unit/test_models.py::TestTransactionEnums::test_merchant_categories_count ERROR                            [ 94%]
+tests/unit/test_models.py::TestTransactionModel::test_transaction_has_required_fields ERROR                      [ 95%]
+tests/unit/test_models.py::TestTransactionModel::test_fraud_score_range ERROR                                    [ 95%]
+tests/unit/test_models.py::TestTransactionModel::test_default_status_is_pending ERROR                            [ 96%]
+tests/unit/test_models.py::TestTransactionModel::test_transaction_serializes_to_json ERROR                       [ 97%]
+tests/unit/test_models.py::TestTransactionModel::test_transaction_roundtrip ERROR                                [ 98%]
+tests/unit/test_models.py::TestTransactionModel::test_is_high_value_flag ERROR                                   [ 99%]
+tests/unit/test_models.py::TestTransactionModel::test_is_suspicious_default_false ERROR                          [100%]
+
+======================================================== ERRORS ========================================================
+______________________________ ERROR at setup of TestGatewayHealth.test_health_returns_ok ______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestSingleTransaction.test_post_transaction_returns_200 _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________ ERROR at setup of TestSingleTransaction.test_post_transaction_response_has_pipeline_fields ______________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestSingleTransaction.test_duplicate_transaction_rejected ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestSingleTransaction.test_fraud_transaction_flagged ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestSingleTransaction.test_invalid_payload_returns_422 _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestBatchTransactions.test_batch_post_returns_200 __________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestBatchTransactions.test_batch_response_count_matches _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestBatchTransactions.test_batch_exceeding_limit_returns_422 ____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestGetTransactions.test_get_transactions_returns_list _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestGetTransactions.test_get_transactions_respects_limit ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestGetTransactions.test_get_transaction_by_id ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________ ERROR at setup of TestGetTransactions.test_get_nonexistent_transaction_returns_404 __________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestFraudAlerts.test_get_fraud_alerts_returns_list _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________ ERROR at setup of TestFraudAlerts.test_fraud_alert_created_after_flagged_transaction _________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________________ ERROR at setup of TestStats.test_stats_returns_200 __________________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________________ ERROR at setup of TestStats.test_stats_has_required_fields ______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________ ERROR at setup of TestSimulate.test_simulate_endpoint_returns_200 ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestSimulate.test_simulate_processes_correct_count _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestGatewayMetrics.test_metrics_endpoint_returns_200 ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestGatewayMetrics.test_metrics_contains_api_counter ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestFraudServiceHealth.test_health_returns_ok ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestFraudServiceHealth.test_health_shows_redis_connected ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestAnalyzeEndpoint.test_analyze_clean_transaction _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestAnalyzeEndpoint.test_analyze_geo_anomaly_blocked ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestAnalyzeEndpoint.test_analyze_high_value_reviewed ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestAnalyzeEndpoint.test_analyze_card_testing_blocked ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestAnalyzeEndpoint.test_analyze_invalid_payload_returns_422 ____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestAnalyzeBatchEndpoint.test_batch_analyze_returns_results _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________ ERROR at setup of TestAnalyzeBatchEndpoint.test_batch_each_result_has_required_fields _________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________ ERROR at setup of TestAnalyzeBatchEndpoint.test_batch_exceeding_limit_returns_422 ___________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestFraudMetrics.test_metrics_endpoint_returns_200 _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestFraudMetrics.test_metrics_contains_fraud_counter ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestNotificationHealth.test_health_returns_ok ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestNotificationHealth.test_health_shows_mock_notifier _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestFraudAlert.test_fraud_alert_returns_200 _____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestFraudAlert.test_fraud_alert_response_structure _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestFraudAlert.test_fraud_alert_missing_fields_returns_422 _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestHighValueAlert.test_high_value_alert_returns_200 ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestHighValueAlert.test_high_value_alert_response_structure _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestBatchAlerts.test_batch_alerts_returns_200 ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestBatchAlerts.test_batch_exceeding_limit_returns_422 _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestNotificationMetrics.test_metrics_endpoint_returns_200 ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestDeduplication.test_new_transaction_not_duplicate ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestDeduplication.test_seen_transaction_is_duplicate ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestDeduplication.test_different_transactions_not_duplicate _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________________ ERROR at setup of TestDeduplication.test_mark_seen_sets_ttl ______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestVelocityTracking.test_initial_velocity_is_zero _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestVelocityTracking.test_increment_velocity ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestVelocityTracking.test_multiple_increments ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestVelocityTracking.test_is_high_velocity_false_below_limit ____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestVelocityTracking.test_is_high_velocity_true_above_limit _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestVelocityTracking.test_velocity_isolated_per_account _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestDatabaseConnection.test_connect_succeeds ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________________ ERROR at setup of TestDatabaseConnection.test_tables_exist ______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestInsertTransaction.test_insert_single_transaction ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestInsertTransaction.test_inserted_transaction_fields _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestInsertTransaction.test_insert_multiple_transactions _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestInsertTransaction.test_get_transactions_respects_limit _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________________ ERROR at setup of TestFraudAlerts.test_insert_fraud_alert _______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________________ ERROR at setup of TestFraudAlerts.test_fraud_alert_fields _______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________________ ERROR at setup of TestFraudAlerts.test_multiple_fraud_alerts _____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________________ ERROR at setup of TestStats.test_stats_empty_db ____________________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________________ ERROR at setup of TestStats.test_stats_after_inserts _________________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________________ ERROR at setup of TestStats.test_stats_fraud_count __________________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestAccountPool.test_generates_500_accounts _____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestAccountPool.test_accounts_have_required_fields _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestAccountPool.test_risk_profiles_are_valid ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________ ERROR at setup of TestAccountPool.test_random_account_returns_dict __________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestTransactionFactory.test_generate_returns_transaction ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________ ERROR at setup of TestTransactionFactory.test_generate_batch_returns_correct_count __________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestTransactionFactory.test_all_batch_items_are_transactions ____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestTransactionFactory.test_transaction_ids_are_unique _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestTransactionFactory.test_force_fraud_sets_suspicious _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestTransactionFactory.test_zero_fraud_rate_no_suspicious ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________ ERROR at setup of TestTransactionFactory.test_amounts_are_positive __________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestTransactionFactory.test_indian_currency_default _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestTransactionFactory.test_transaction_types_are_valid _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestTransactionFactory.test_fraud_patterns_high_value ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestTransactionFactory.test_fraud_patterns_geo_anomaly _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestTransactionFactory.test_fraud_patterns_card_testing _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestHighValueRule.test_high_value_triggers_above_threshold _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestHighValueRule.test_high_value_no_trigger_below_threshold ____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestHighValueRule.test_high_value_exactly_at_threshold _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestHighValueRule.test_high_value_just_above_threshold _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestGeoAnomalyRule.test_geo_anomaly_nigeria_triggers ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestGeoAnomalyRule.test_geo_anomaly_romania_triggers ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestGeoAnomalyRule.test_geo_anomaly_india_no_trigger ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestGeoAnomalyRule.test_geo_anomaly_usa_no_trigger _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestCardTestingRule.test_card_testing_triggers_small_online _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________ ERROR at setup of TestCardTestingRule.test_card_testing_no_trigger_large_amount ____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________ ERROR at setup of TestCardTestingRule.test_card_testing_no_trigger_non_online _____________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestCardTestingRule.test_card_testing_boundary_amount ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________ ERROR at setup of TestOddHoursRule.test_odd_hours_triggers_at_2am ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestOddHoursRule.test_odd_hours_no_trigger_at_noon _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestOddHoursRule.test_odd_hours_boundary_1am ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestOddHoursRule.test_odd_hours_boundary_4am ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________ ERROR at setup of TestInternationalHighAmountRule.test_international_high_amount_triggers _______________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________ ERROR at setup of TestInternationalHighAmountRule.test_international_low_amount_no_trigger ______________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________ ERROR at setup of TestInternationalHighAmountRule.test_domestic_high_amount_no_trigger ________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestRefundAbuseRule.test_refund_abuse_triggers ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestRefundAbuseRule.test_refund_small_amount_no_trigger _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestRefundAbuseRule.test_non_refund_no_trigger ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestVelocityRule.test_high_velocity_triggers ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________ ERROR at setup of TestVelocityRule.test_normal_velocity_no_trigger __________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestAnalyze.test_analyze_returns_block_for_geo_anomaly _______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestAnalyze.test_analyze_returns_approve_for_clean_tx ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestAnalyze.test_analyze_returns_review_for_mid_score ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_________________________ ERROR at setup of TestAnalyze.test_analyze_score_is_max_of_all_rules _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________________ ERROR at setup of TestGeoLocation.test_valid_geolocation _______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________________ ERROR at setup of TestGeoLocation.test_lat_lon_are_floats _______________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestTransactionEnums.test_transaction_types _____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+___________________________ ERROR at setup of TestTransactionEnums.test_transaction_statuses ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestTransactionEnums.test_merchant_categories_count _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_____________________ ERROR at setup of TestTransactionModel.test_transaction_has_required_fields ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestTransactionModel.test_fraud_score_range _____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+________________________ ERROR at setup of TestTransactionModel.test_default_status_is_pending _________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+______________________ ERROR at setup of TestTransactionModel.test_transaction_serializes_to_json ______________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+__________________________ ERROR at setup of TestTransactionModel.test_transaction_roundtrip ___________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+____________________________ ERROR at setup of TestTransactionModel.test_is_high_value_flag ____________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+_______________________ ERROR at setup of TestTransactionModel.test_is_suspicious_default_false ________________________
+tests/conftest.py:31: in create_test_database
+    conn = _pg_conn("postgres")
+tests/conftest.py:19: in _pg_conn
+    return psycopg2.connect(
+venv/lib/python3.12/site-packages/psycopg2/__init__.py:122: in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+E   psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+E   connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+E       Is the server running on that host and accepting TCP/IP connections?
+=============================================== short test summary info ================================================
+ERROR tests/integration/test_api_gateway.py::TestGatewayHealth::test_health_returns_ok - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSingleTransaction::test_post_transaction_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSingleTransaction::test_post_transaction_response_has_pipeline_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSingleTransaction::test_duplicate_transaction_rejected - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSingleTransaction::test_fraud_transaction_flagged - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSingleTransaction::test_invalid_payload_returns_422 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestBatchTransactions::test_batch_post_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestBatchTransactions::test_batch_response_count_matches - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestBatchTransactions::test_batch_exceeding_limit_returns_422 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestGetTransactions::test_get_transactions_returns_list - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestGetTransactions::test_get_transactions_respects_limit - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestGetTransactions::test_get_transaction_by_id - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestGetTransactions::test_get_nonexistent_transaction_returns_404 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestFraudAlerts::test_get_fraud_alerts_returns_list - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestFraudAlerts::test_fraud_alert_created_after_flagged_transaction - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestStats::test_stats_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestStats::test_stats_has_required_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSimulate::test_simulate_endpoint_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestSimulate::test_simulate_processes_correct_count - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestGatewayMetrics::test_metrics_endpoint_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_api_gateway.py::TestGatewayMetrics::test_metrics_contains_api_counter - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestFraudServiceHealth::test_health_returns_ok - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestFraudServiceHealth::test_health_shows_redis_connected - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_clean_transaction - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_geo_anomaly_blocked - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_high_value_reviewed - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_card_testing_blocked - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeEndpoint::test_analyze_invalid_payload_returns_422 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeBatchEndpoint::test_batch_analyze_returns_results - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeBatchEndpoint::test_batch_each_result_has_required_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestAnalyzeBatchEndpoint::test_batch_exceeding_limit_returns_422 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestFraudMetrics::test_metrics_endpoint_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_fraud_service.py::TestFraudMetrics::test_metrics_contains_fraud_counter - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestNotificationHealth::test_health_returns_ok - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestNotificationHealth::test_health_shows_mock_notifier - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestFraudAlert::test_fraud_alert_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestFraudAlert::test_fraud_alert_response_structure - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestFraudAlert::test_fraud_alert_missing_fields_returns_422 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestHighValueAlert::test_high_value_alert_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestHighValueAlert::test_high_value_alert_response_structure - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestBatchAlerts::test_batch_alerts_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestBatchAlerts::test_batch_exceeding_limit_returns_422 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/integration/test_notification_service.py::TestNotificationMetrics::test_metrics_endpoint_returns_200 - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestDeduplication::test_new_transaction_not_duplicate - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestDeduplication::test_seen_transaction_is_duplicate - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestDeduplication::test_different_transactions_not_duplicate - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestDeduplication::test_mark_seen_sets_ttl - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestVelocityTracking::test_initial_velocity_is_zero - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestVelocityTracking::test_increment_velocity - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestVelocityTracking::test_multiple_increments - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestVelocityTracking::test_is_high_velocity_false_below_limit - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestVelocityTracking::test_is_high_velocity_true_above_limit - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_cache.py::TestVelocityTracking::test_velocity_isolated_per_account - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestDatabaseConnection::test_connect_succeeds - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestDatabaseConnection::test_tables_exist - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestInsertTransaction::test_insert_single_transaction - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestInsertTransaction::test_inserted_transaction_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestInsertTransaction::test_insert_multiple_transactions - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestInsertTransaction::test_get_transactions_respects_limit - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestFraudAlerts::test_insert_fraud_alert - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestFraudAlerts::test_fraud_alert_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestFraudAlerts::test_multiple_fraud_alerts - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestStats::test_stats_empty_db - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestStats::test_stats_after_inserts - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_db.py::TestStats::test_stats_fraud_count - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestAccountPool::test_generates_500_accounts - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestAccountPool::test_accounts_have_required_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestAccountPool::test_risk_profiles_are_valid - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestAccountPool::test_random_account_returns_dict - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_generate_returns_transaction - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_generate_batch_returns_correct_count - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_all_batch_items_are_transactions - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_transaction_ids_are_unique - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_force_fraud_sets_suspicious - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_zero_fraud_rate_no_suspicious - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_amounts_are_positive - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_indian_currency_default - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_transaction_types_are_valid - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_fraud_patterns_high_value - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_fraud_patterns_geo_anomaly - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_factory.py::TestTransactionFactory::test_fraud_patterns_card_testing - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_triggers_above_threshold - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_no_trigger_below_threshold - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_exactly_at_threshold - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestHighValueRule::test_high_value_just_above_threshold - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_nigeria_triggers - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_romania_triggers - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_india_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestGeoAnomalyRule::test_geo_anomaly_usa_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_triggers_small_online - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_no_trigger_large_amount - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_no_trigger_non_online - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestCardTestingRule::test_card_testing_boundary_amount - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_triggers_at_2am - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_no_trigger_at_noon - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_boundary_1am - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestOddHoursRule::test_odd_hours_boundary_4am - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestInternationalHighAmountRule::test_international_high_amount_triggers - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestInternationalHighAmountRule::test_international_low_amount_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestInternationalHighAmountRule::test_domestic_high_amount_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestRefundAbuseRule::test_refund_abuse_triggers - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestRefundAbuseRule::test_refund_small_amount_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestRefundAbuseRule::test_non_refund_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestVelocityRule::test_high_velocity_triggers - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestVelocityRule::test_normal_velocity_no_trigger - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_returns_block_for_geo_anomaly - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_returns_approve_for_clean_tx - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_returns_review_for_mid_score - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_fraud_rules.py::TestAnalyze::test_analyze_score_is_max_of_all_rules - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestGeoLocation::test_valid_geolocation - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestGeoLocation::test_lat_lon_are_floats - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionEnums::test_transaction_types - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionEnums::test_transaction_statuses - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionEnums::test_merchant_categories_count - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_transaction_has_required_fields - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_fraud_score_range - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_default_status_is_pending - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_transaction_serializes_to_json - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_transaction_roundtrip - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_is_high_value_flag - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+ERROR tests/unit/test_models.py::TestTransactionModel::test_is_suspicious_default_false - psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+================================================= 121 errors in 0.46s ==================================================

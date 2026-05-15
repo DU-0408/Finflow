@@ -100,7 +100,7 @@ def analyze_transaction(tx: Transaction):
 def analyze_batch(transactions: list[Transaction]):
     """Analyze a batch of transactions. Max 500 per call."""
     if len(transactions) > 500:
-        raise HTTPException(status_code=400, detail="Max 500 transactions per batch")
+        raise HTTPException(status_code=422, detail="Max 500 transactions per batch")
 
     results = []
     for tx in transactions:

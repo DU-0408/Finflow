@@ -97,7 +97,7 @@ def send_high_value_alert(req: HighValueAlertRequest):
 def send_batch_alerts(requests: list[FraudAlertRequest]):
     """Send multiple fraud alerts at once."""
     if len(requests) > 100:
-        raise HTTPException(status_code=400, detail="Max 100 alerts per batch")
+        raise HTTPException(status_code=422, detail="Max 100 alerts per batch")
 
     results = {"sent": 0, "failed": 0}
     for req in requests:
