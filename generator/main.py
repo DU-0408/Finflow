@@ -10,9 +10,7 @@ from __future__ import annotations
 import argparse
 import time
 import signal
-import sys
 import logging
-from datetime import datetime
 
 from dotenv import load_dotenv
 from prometheus_client import Counter, start_http_server

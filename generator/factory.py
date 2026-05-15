@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 import random
 import hashlib
-from datetime import datetime
 
 from faker import Faker
 from dotenv import load_dotenv
