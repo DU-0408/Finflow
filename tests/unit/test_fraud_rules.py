@@ -206,6 +206,9 @@ class TestAnalyze:
         assert result["is_suspicious"] is True
 
     def test_analyze_returns_approve_for_clean_tx(self, engine, base_tx):
+        from datetime import datetime, timezone
+        base_tx.amount = 50.0
+        base_tx.timestamp = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
         result = engine.analyze(base_tx)
         assert result["recommendation"] == "APPROVE"
         assert result["is_suspicious"] is False
