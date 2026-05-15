@@ -106,31 +106,31 @@ jobs:
 
       - name: Roll out generator
         run: |
-          kubectl set image deployment/generator \
+          kubectl set image deployment/finflow-generator \
             generator=du0408/finflow-generator:${{ github.sha }} \
             -n finflow
-          kubectl rollout status deployment/generator -n finflow --timeout=120s
+          kubectl rollout status deployment/finflow-generator -n finflow --timeout=120s
 
       - name: Roll out api-gateway
         run: |
-          kubectl set image deployment/api-gateway \
+          kubectl set image deployment/finflow-api-gateway \
             api-gateway=du0408/finflow-api-gateway:${{ github.sha }} \
             -n finflow
-          kubectl rollout status deployment/api-gateway -n finflow --timeout=120s
+          kubectl rollout status deployment/finflow-api-gateway -n finflow --timeout=120s
 
       - name: Roll out fraud-service
         run: |
-          kubectl set image deployment/fraud-service \
+          kubectl set image deployment/finflow-fraud-service \
             fraud-service=du0408/finflow-fraud-service:${{ github.sha }} \
             -n finflow
-          kubectl rollout status deployment/fraud-service -n finflow --timeout=120s
+          kubectl rollout status deployment/finflow-fraud-service -n finflow --timeout=120s
 
       - name: Roll out notification-service
         run: |
-          kubectl set image deployment/notification-service \
+          kubectl set image deployment/finflow-notification-service \
             notification-service=du0408/finflow-notification-service:${{ github.sha }} \
             -n finflow
-          kubectl rollout status deployment/notification-service -n finflow --timeout=120s
+          kubectl rollout status deployment/finflow-notification-service -n finflow --timeout=120s
 
       - name: Verify all pods healthy
         run: kubectl get pods -n finflow
