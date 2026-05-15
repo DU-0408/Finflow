@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finflow-postgres
+  namespace: finflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finflow-postgres
+  template:
+    metadata:
+      labels:
+        app: finflow-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: finflow-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: finflow-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: finflow-secrets
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim:
+            claimName: finflow-pgdata
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: finflow-pgdata
+  namespace: finflow
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: finflow-postgres
+  namespace: finflow
+spec:
+  selector:
+    app: finflow-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

@@ -28,10 +28,21 @@ factory = TransactionFactory()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
+    # Startup — retry PostgreSQL connection up to 10 times
+    import time
     logger.info("Connecting to PostgreSQL and Redis...")
-    db.connect()
-    db.create_tables()
+    for attempt in range(10):
+        try:
+            db.connect()
+            db.create_tables()
+            logger.info("PostgreSQL connected.")
+            break
+        except Exception as e:
+            logger.warning(f"PostgreSQL not ready (attempt {attempt+1}/10): {e}")
+            time.sleep(3)
+    else:
+        logger.error("Could not connect to PostgreSQL after 10 attempts.")
+
     logger.info("API Gateway ready.")
     yield
     # Shutdown
@@ -58,10 +69,23 @@ def metrics():
 
 @app.get("/health")
 def health():
+    # Test PostgreSQL with a live query
+    postgres_ok = False
+    try:
+        db.cursor.execute("SELECT 1")
+        postgres_ok = True
+    except Exception:
+        try:
+            db.connect()
+            db.cursor.execute("SELECT 1")
+            postgres_ok = True
+        except Exception:
+            postgres_ok = False
+
     return {
         "status":   "ok",
         "service":  "api_gateway",
-        "postgres": db.conn is not None and not db.conn.closed,
+        "postgres": postgres_ok,
         "redis":    cache.ping(),
     }
 

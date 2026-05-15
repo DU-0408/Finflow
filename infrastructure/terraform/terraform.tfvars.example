@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars and fill in your values
+# terraform.tfvars is gitignored and should NEVER be committed
+
+aws_region   = "ap-south-1"
+project_name = "finflow"
+environment  = "dev"
+alert_email  = "your_email@gmail.com"

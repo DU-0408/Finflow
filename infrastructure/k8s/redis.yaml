@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finflow-redis
+  namespace: finflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finflow-redis
+  template:
+    metadata:
+      labels:
+        app: finflow-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: finflow-redis
+  namespace: finflow
+spec:
+  selector:
+    app: finflow-redis
+  ports:
+    - port: 6379
+      targetPort: 6379

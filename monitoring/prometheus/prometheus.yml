@@ -1,31 +1,23 @@
 global:
   scrape_interval: 15s
-  evaluation_interval: 15s
-  external_labels:
-    project: finflow
-    environment: dev
 
 scrape_configs:
 
   - job_name: "api_gateway"
     static_configs:
-      - targets: ["host.docker.internal:8000"]
-    metrics_path: /metrics
+      - targets: ["finflow-api-gateway:8000"]
 
   - job_name: "fraud_service"
     static_configs:
-      - targets: ["host.docker.internal:8001"]
-    metrics_path: /metrics
+      - targets: ["finflow-fraud-service:8001"]
 
   - job_name: "notification_service"
     static_configs:
-      - targets: ["host.docker.internal:8002"]
-    metrics_path: /metrics
+      - targets: ["finflow-notification-service:8002"]
 
   - job_name: "generator"
     static_configs:
-      - targets: ["host.docker.internal:8003"]
-    metrics_path: /metrics
+      - targets: ["finflow-generator-metrics:8003"]
 
   - job_name: "prometheus"
     static_configs:

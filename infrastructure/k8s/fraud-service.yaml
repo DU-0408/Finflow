@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finflow-fraud-service
+  namespace: finflow
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: finflow-fraud-service
+  template:
+    metadata:
+      labels:
+        app: finflow-fraud-service
+    spec:
+      containers:
+        - name: fraud-service
+          image: du0408/finflow-fraud-service:latest
+          ports:
+            - containerPort: 8001
+          envFrom:
+            - configMapRef:
+                name: finflow-config
+            - secretRef:
+                name: finflow-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8001
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: finflow-fraud-service
+  namespace: finflow
+spec:
+  selector:
+    app: finflow-fraud-service
+  ports:
+    - port: 8001
+      targetPort: 8001

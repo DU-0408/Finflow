@@ -1,0 +1,26 @@
+# Copy this file to configmap.yaml and fill in your values
+# configmap.yaml is gitignored and should NEVER be committed
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: finflow-config
+  namespace: finflow
+data:
+  POSTGRES_HOST: "finflow-postgres"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "finflow"
+  POSTGRES_USER: "finflow_user"
+  REDIS_HOST: "finflow-redis"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  FRAUD_SERVICE_URL: "http://finflow-fraud-service:8001"
+  NOTIFICATION_SERVICE_URL: "http://finflow-notification-service:8002"
+  AWS_DEFAULT_REGION: "ap-south-1"
+  KINESIS_STREAM_NAME: "finflow-transactions"
+  S3_BUCKET_NAME: "finflow-data-lake-YOUR_ACCOUNT_ID"
+  FRAUD_RATE: "0.02"
+  USE_MOCK_NOTIFIER: "false"
+  GENERATOR_TPS: "10"
+  GENERATOR_MODE: "batch"
+  API_GATEWAY_URL: "http://finflow-api-gateway:8000"

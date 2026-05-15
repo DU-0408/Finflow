@@ -21,3 +21,12 @@ infrastructure/terraform/.terraform.lock.hcl
 .vscode/
 .idea/infrastructure/terraform/terraform.tfvars
 infrastructure/terraform/lambda_src.zip
+infrastructure/k8s/secret.yaml
+infrastructure/k8s/secret.yaml
+infrastructure/k8s/configmap.yaml
+infrastructure/terraform/terraform.tfvars
+infrastructure/terraform/.terraform/
+infrastructure/terraform/*.tfstate
+infrastructure/terraform/*.tfstate.backup
+infrastructure/terraform/.terraform.lock.hcl
+infrastructure/terraform/lambda_src.zip

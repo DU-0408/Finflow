@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finflow-generator
+  namespace: finflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finflow-generator
+  template:
+    metadata:
+      labels:
+        app: finflow-generator
+    spec:
+      containers:
+        - name: generator
+          image: du0408/finflow-generator:latest
+          envFrom:
+            - configMapRef:
+                name: finflow-config
+            - secretRef:
+                name: finflow-secrets
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
