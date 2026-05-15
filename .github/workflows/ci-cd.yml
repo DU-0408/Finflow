@@ -56,6 +56,10 @@ jobs:
           ruff check .
 
       - name: Run tests
+        env:
+          POSTGRES_USER: finflow
+          POSTGRES_PASSWORD: finflow
+          POSTGRES_DB: finflow_test
         run: |
           pytest tests/ -v --tb=short
 
