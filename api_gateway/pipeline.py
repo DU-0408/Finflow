@@ -71,9 +71,23 @@ class TransactionPipeline:
             tx.is_suspicious = True
             tx.status        = TransactionStatus.FLAGGED
             self.db.insert_fraud_alert(tx, pattern)
+            self.db.update_transaction_status(
+                tx.transaction_id, "FLAGGED",
+                is_suspicious=True,
+                fraud_score=tx.fraud_score,
+            )
 
-        elif tx.is_high_value:
-            self._call_high_value_notification(tx)
+        else:
+            # Clean transaction → mark APPROVED
+            tx.status = TransactionStatus.APPROVED
+            score = fraud_result.get("fraud_score", 0.0) if fraud_result else 0.0
+            self.db.update_transaction_status(
+                tx.transaction_id, "APPROVED",
+                is_suspicious=False,
+                fraud_score=score,
+            )
+            if tx.is_high_value:
+                self._call_high_value_notification(tx)
 
         # ── Step 5: Return result ─────────────────────────────────────────────
         return {

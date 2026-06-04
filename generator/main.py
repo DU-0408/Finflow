@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from prometheus_client import Counter, start_http_server
 
 from .factory   import TransactionFactory
-from .producers import KinesisProducer, APIProducer, LocalProducer
+from .producers import KinesisProducer, APIProducer, LocalProducer, DualProducer
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -157,7 +157,7 @@ def run_local(factory, producer, tps: int, duration: int | None):
 
 def main():
     parser = argparse.ArgumentParser(description="FinFlow Transaction Generator")
-    parser.add_argument("--mode",       choices=["stream", "batch", "local"], default="local")
+    parser.add_argument("--mode",       choices=["stream", "batch", "dual", "local"], default="local")
     parser.add_argument("--tps",        type=int, default=10,  help="Transactions per second")
     parser.add_argument("--duration",   type=int, default=None, help="Run duration in seconds")
     parser.add_argument("--batch-size", type=int, default=500,  help="Batch size (batch mode only)")
@@ -178,6 +178,10 @@ def main():
 
     elif args.mode == "batch":
         producer = APIProducer()
+        run_batch(factory, producer, args.batch_size, args.duration)
+
+    elif args.mode == "dual":
+        producer = DualProducer()
         run_batch(factory, producer, args.batch_size, args.duration)
 
     else:

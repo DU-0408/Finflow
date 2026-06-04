@@ -3,11 +3,14 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
+from pydantic import BaseModel
 from dotenv import load_dotenv
+import bcrypt
+import os
 
 from generator.models import Transaction
 from generator.db     import DatabaseManager
@@ -26,6 +29,39 @@ cache   = CacheManager()
 factory = TransactionFactory()
 
 
+# ── WebSocket connection manager ─────────────────────────────────────────────
+
+class ConnectionManager:
+    def __init__(self):
+        self.active: list[WebSocket] = []
+
+    async def connect(self, ws: WebSocket):
+        await ws.accept()
+        self.active.append(ws)
+        logger.info(f"WebSocket client connected. Total: {len(self.active)}")
+
+    def disconnect(self, ws: WebSocket):
+        if ws in self.active:
+            self.active.remove(ws)
+        logger.info(f"WebSocket client disconnected. Total: {len(self.active)}")
+
+    async def broadcast(self, data: dict):
+        for ws in self.active[:]:
+            try:
+                await ws.send_json(data)
+            except Exception:
+                self.active.remove(ws)
+
+ws_manager = ConnectionManager()
+
+
+# ── Auth request model ────────────────────────────────────────────────────────
+
+class AuthRequest(BaseModel):
+    username: str
+    password: str
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup — retry PostgreSQL connection up to 10 times
@@ -35,6 +71,12 @@ async def lifespan(app: FastAPI):
         try:
             db.connect()
             db.create_tables()
+            # Seed admin user from env vars (idempotent)
+            admin_user = os.getenv("ADMIN_USERNAME", "admin")
+            admin_pass = os.getenv("ADMIN_PASSWORD", "admin123")
+            pw_hash = bcrypt.hashpw(admin_pass.encode(), bcrypt.gensalt()).decode()
+            db.create_user(admin_user, pw_hash, "admin")
+            logger.info(f"Admin user '{admin_user}' seeded.")
             logger.info("PostgreSQL connected.")
             break
         except Exception as e:
@@ -90,18 +132,50 @@ def health():
     }
 
 
+# ── WebSocket endpoint ────────────────────────────────────────────────────────
+
+@app.websocket("/ws/transactions")
+async def websocket_transactions(ws: WebSocket):
+    await ws_manager.connect(ws)
+    try:
+        while True:
+            await ws.receive_text()  # keep-alive
+    except WebSocketDisconnect:
+        ws_manager.disconnect(ws)
+    except Exception:
+        ws_manager.disconnect(ws)
+
+
+# ── Auth ──────────────────────────────────────────────────────────────────────
+
+@app.post("/auth/verify")
+def verify_credentials(req: AuthRequest):
+    """Verify dashboard login credentials."""
+    user = db.verify_user(req.username)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    if not bcrypt.checkpw(req.password.encode("utf-8"), user["password_hash"].encode("utf-8")):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return {
+        "id":       user["id"],
+        "username": user["username"],
+        "role":     user["role"],
+    }
+
+
 # ── Transactions ──────────────────────────────────────────────────────────────
 
 @app.post("/transactions")
-def submit_transaction(tx: Transaction):
+async def submit_transaction(tx: Transaction):
     """Submit a single transaction through the full pipeline."""
     pipeline = TransactionPipeline(db, cache)
     result   = pipeline.process(tx)
+    await ws_manager.broadcast(result)
     return result
 
 
 @app.post("/transactions/batch")
-def submit_batch(transactions: list[Transaction]):
+async def submit_batch(transactions: list[Transaction]):
     """Submit a batch of transactions. Max 1000 per call."""
     if len(transactions) > 1000:
         raise HTTPException(status_code=422, detail="Max 1000 transactions per batch")
@@ -117,6 +191,7 @@ def submit_batch(transactions: list[Transaction]):
 
     for tx in transactions:
         result = pipeline.process(tx)
+        await ws_manager.broadcast(result)
         if result["status"] == "processed":
             results["processed"] += 1
             fa = result.get("fraud_analysis")
@@ -136,11 +211,13 @@ def get_transactions(
     offset: int = Query(default=0,   ge=0),
 ):
     """Paginated list of all transactions."""
-    rows = db.get_transactions(limit=limit, offset=offset)
+    rows  = db.get_transactions(limit=limit, offset=offset)
+    total = db.get_transaction_count()
     return {
         "limit":        limit,
         "offset":       offset,
         "count":        len(rows),
+        "total":        total,
         "transactions": [dict(r) for r in rows],
     }
 
@@ -173,7 +250,7 @@ def get_stats():
 # ── Simulation endpoint (for demos) ──────────────────────────────────────────
 
 @app.post("/simulate")
-def simulate(
+async def simulate(
     count:      int   = Query(default=10,   ge=1,   le=500),
     fraud_rate: float = Query(default=0.1,  ge=0.0, le=1.0),
 ):
@@ -194,6 +271,7 @@ def simulate(
     for _ in range(count):
         tx     = sim_factory.generate()
         result = pipeline.process(tx)
+        await ws_manager.broadcast(result)
 
         if result["status"] == "processed":
             results["processed"] += 1

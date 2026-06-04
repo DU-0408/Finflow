@@ -83,6 +83,9 @@ jobs:
             dockerfile: fraud_service/Dockerfile
           - name: finflow-notification-service
             dockerfile: notification_service/Dockerfile
+          - name: finflow-frontend
+            dockerfile: frontend/Dockerfile
+            context: frontend
 
     steps:
       - name: Checkout code
@@ -103,7 +106,7 @@ jobs:
       - name: Build and push ${{ matrix.service.name }}
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ${{ matrix.service.context || '.' }}
           file: ${{ matrix.service.dockerfile }}
           platforms: linux/amd64,linux/arm64
           push: true
@@ -125,6 +128,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Apply K8s manifests (idempotent)
+        run: |
+          kubectl apply -f infrastructure/k8s/configmap.yaml
+          kubectl apply -f infrastructure/k8s/secret.yaml
+          kubectl apply -f infrastructure/k8s/frontend.yaml
 
       - name: Roll out generator
         run: |
@@ -153,6 +162,13 @@ jobs:
             notification-service=du0408/finflow-notification-service:${{ github.sha }} \
             -n finflow
           kubectl rollout status deployment/finflow-notification-service -n finflow --timeout=120s
+
+      - name: Roll out frontend
+        run: |
+          kubectl set image deployment/finflow-frontend \
+            frontend=du0408/finflow-frontend:${{ github.sha }} \
+            -n finflow
+          kubectl rollout status deployment/finflow-frontend -n finflow --timeout=120s
 
       - name: Verify all pods healthy
         run: kubectl get pods -n finflow

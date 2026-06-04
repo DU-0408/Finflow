@@ -94,3 +94,29 @@ class LocalProducer:
         else:
             print(tx.model_dump_json())
         return True
+
+
+class DualProducer:
+    """Sends transactions to both API Gateway (DB) AND Kinesis (AWS pipeline).
+
+    The API Gateway path is the critical one (populates the dashboard).
+    Kinesis failures are logged but don't block the pipeline.
+    """
+
+    def __init__(self):
+        self.api     = APIProducer()
+        self.kinesis = KinesisProducer()
+        logger.info("DualProducer initialized — writing to API Gateway + Kinesis")
+
+    def send_batch(self, transactions: list[Transaction]) -> bool:
+        # API Gateway is the critical path
+        api_ok = self.api.send_batch(transactions)
+
+        # Kinesis is best-effort
+        try:
+            self.kinesis.send_batch(transactions)
+        except Exception as e:
+            logger.warning(f"Kinesis dual-write failed (non-fatal): {e}")
+
+        return api_ok
+
