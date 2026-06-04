@@ -131,9 +131,9 @@ jobs:
 
       - name: Apply K8s manifests (idempotent)
         run: |
-          kubectl apply -f infrastructure/k8s/configmap.yaml
-          kubectl apply -f infrastructure/k8s/secret.yaml
-          kubectl apply -f infrastructure/k8s/frontend.yaml
+          kubectl apply -f ~/finflow-infra/configmap.yaml
+          kubectl apply -f ~/finflow-infra/secret.yaml
+          kubectl apply -f ~/finflow-infra/frontend.yaml
 
       - name: Roll out generator
         run: |
