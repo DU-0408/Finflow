@@ -36,6 +36,7 @@ class DatabaseManager:
                 dbname=os.getenv("POSTGRES_DB", "finflow"),
                 user=os.getenv("POSTGRES_USER", "finflow_user"),
                 password=os.getenv("POSTGRES_PASSWORD", "changeme"),
+                connect_timeout=3,
             )
             self.conn.autocommit = True
             self._write_cursor = self.conn.cursor(cursor_factory=RealDictCursor)
