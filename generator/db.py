@@ -61,6 +61,23 @@ class DatabaseManager:
         """Create a fresh cursor for read-only queries (thread-safe)."""
         return self.conn.cursor(cursor_factory=RealDictCursor)
 
+    def ping(self) -> bool:
+        """Thread-safe connection check and reconnect."""
+        with self._write_lock:
+            try:
+                if not self.conn or self.conn.closed:
+                    self.connect()
+                self._write_cursor.execute("SELECT 1")
+                return True
+            except Exception:
+                try:
+                    self.connect()
+                    self._write_cursor.execute("SELECT 1")
+                    return True
+                except Exception as e:
+                    logger.error(f"DB ping and reconnect failed: {e}")
+                    return False
+
     def create_tables(self):
         """Create all tables if they don't exist."""
 

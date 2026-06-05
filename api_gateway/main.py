@@ -110,25 +110,18 @@ def metrics():
 # ── Health ────────────────────────────────────────────────────────────────────
 
 @app.get("/health")
-def health():
-    # Test PostgreSQL with a live query
-    postgres_ok = False
-    try:
-        db.cursor.execute("SELECT 1")
-        postgres_ok = True
-    except Exception:
-        try:
-            db.connect()
-            db.cursor.execute("SELECT 1")
-            postgres_ok = True
-        except Exception:
-            postgres_ok = False
+def health(response: Response):
+    postgres_ok = db.ping()
+    redis_ok = cache.ping()
+
+    if not postgres_ok or not redis_ok:
+        response.status_code = 503
 
     return {
-        "status":   "ok",
+        "status":   "ok" if postgres_ok and redis_ok else "error",
         "service":  "api_gateway",
         "postgres": postgres_ok,
-        "redis":    cache.ping(),
+        "redis":    redis_ok,
     }
 
 
