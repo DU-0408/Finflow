@@ -11,13 +11,12 @@ class TestDatabaseConnection:
         assert db.pool.closed == False
 
     def test_tables_exist(self, db):
-        with db.get_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute("""
+        with db.get_connection() as conn, conn.cursor() as cur:
+            cur.execute("""
                     SELECT table_name FROM information_schema.tables
                     WHERE table_schema = 'public'
                 """)
-                tables = {row[0] for row in cur.fetchall()}
+            tables = {row[0] for row in cur.fetchall()}
         assert "transactions" in tables
         assert "fraud_alerts" in tables
 
