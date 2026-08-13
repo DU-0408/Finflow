@@ -49,6 +49,12 @@ def create_test_database():
     conn = _pg_conn("postgres")
     conn.autocommit = True
     cur = conn.cursor()
+    cur.execute(
+        "SELECT pg_terminate_backend(pg_stat_activity.pid) "
+        "FROM pg_stat_activity "
+        "WHERE pg_stat_activity.datname = 'finflow_test' "
+        "AND pid <> pg_backend_pid()"
+    )
     cur.execute("DROP DATABASE IF EXISTS finflow_test")
     cur.close()
     conn.close()
@@ -61,10 +67,10 @@ def db():
     database = DatabaseManager()
     database.connect()
 
-    cur = database.conn.cursor()
-    cur.execute("TRUNCATE TABLE fraud_alerts, transactions RESTART IDENTITY CASCADE")
-    database.conn.commit()
-    cur.close()
+    with database.get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("TRUNCATE TABLE fraud_alerts, transactions RESTART IDENTITY CASCADE")
+        conn.commit()
 
     yield database
     database.disconnect()

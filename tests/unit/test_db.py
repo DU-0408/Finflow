@@ -7,17 +7,17 @@ from generator.factory import TransactionFactory
 @pytest.mark.unit
 class TestDatabaseConnection:
     def test_connect_succeeds(self, db):
-        assert db.conn is not None
-        assert db.conn.closed == 0
+        assert db.pool is not None
+        assert db.pool.closed == False
 
     def test_tables_exist(self, db):
-        cur = db.conn.cursor()
-        cur.execute("""
-            SELECT table_name FROM information_schema.tables
-            WHERE table_schema = 'public'
-        """)
-        tables = {row[0] for row in cur.fetchall()}
-        cur.close()
+        with db.get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    SELECT table_name FROM information_schema.tables
+                    WHERE table_schema = 'public'
+                """)
+                tables = {row[0] for row in cur.fetchall()}
         assert "transactions" in tables
         assert "fraud_alerts" in tables
 
