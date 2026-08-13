@@ -1,7 +1,8 @@
 """Unit tests for all 7 fraud detection rules."""
 import pytest
-from generator.factory import TransactionFactory
+
 from fraud_service.rules import FraudRuleEngine
+from generator.factory import TransactionFactory
 
 
 @pytest.fixture

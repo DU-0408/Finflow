@@ -1,6 +1,7 @@
 """Unit tests for TransactionFactory."""
 import pytest
-from generator.factory import TransactionFactory, AccountPool
+
+from generator.factory import AccountPool, TransactionFactory
 from generator.models import Transaction, TransactionType
 
 

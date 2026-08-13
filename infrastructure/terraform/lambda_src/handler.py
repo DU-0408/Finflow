@@ -3,10 +3,10 @@ AWS Lambda function — triggered by Kinesis Data Stream.
 Reads transaction records, validates them, writes to S3 data lake.
 """
 
-import json
-import os
 import base64
+import json
 import logging
+import os
 from datetime import datetime, timezone
 
 import boto3

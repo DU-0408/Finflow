@@ -3,8 +3,9 @@ Shared fixtures for FinFlow test suite.
 Uses real PostgreSQL (finflow_test database) and real Redis (DB 1).
 """
 import os
-import pytest
+
 import psycopg2
+import pytest
 import redis as redis_lib
 from fastapi.testclient import TestClient
 

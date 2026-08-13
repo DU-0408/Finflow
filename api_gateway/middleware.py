@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import time
 import logging
+import time
 
+from prometheus_client import Counter, Histogram
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from prometheus_client import Counter, Histogram
 
 logger = logging.getLogger(__name__)
 

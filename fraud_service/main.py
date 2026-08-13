@@ -1,21 +1,24 @@
 from __future__ import annotations
 
-import time
 import logging
+import time
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
-from dotenv import load_dotenv
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 
+from generator.cache import CacheManager
 from generator.models import Transaction
-from generator.cache  import CacheManager
-from .rules   import FraudRuleEngine
+
 from .metrics import (
-    FRAUD_CHECKS_TOTAL, FRAUD_DETECTED_TOTAL,
-    RULE_TRIGGER_COUNT, ANALYSIS_DURATION
+    ANALYSIS_DURATION,
+    FRAUD_CHECKS_TOTAL,
+    FRAUD_DETECTED_TOTAL,
+    RULE_TRIGGER_COUNT,
 )
+from .rules import FraudRuleEngine
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")

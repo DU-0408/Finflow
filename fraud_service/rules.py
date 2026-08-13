@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 
-from generator.models import Transaction, MerchantCategory
+from generator.models import MerchantCategory, Transaction
 
 logger = logging.getLogger(__name__)
 

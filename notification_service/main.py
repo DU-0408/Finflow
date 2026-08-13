@@ -1,15 +1,13 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from prometheus_client import Counter
-from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 from fastapi.responses import Response
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from pydantic import BaseModel
-from dotenv import load_dotenv
 
 from .notifier import get_notifier
 
@@ -50,16 +48,16 @@ class FraudAlertRequest(BaseModel):
     fraud_score:     float
     triggered_rules: list[str]
     recommendation:  str
-    merchant_name:   Optional[str] = None
-    channel:         Optional[str] = None
+    merchant_name:   str | None = None
+    channel:         str | None = None
 
 
 class HighValueAlertRequest(BaseModel):
     transaction_id: str
     account_id:     str
     amount:         float
-    merchant_name:  Optional[str] = None
-    channel:        Optional[str] = None
+    merchant_name:  str | None = None
+    channel:        str | None = None
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────

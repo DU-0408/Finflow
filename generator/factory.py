@@ -1,15 +1,18 @@
 from __future__ import annotations
 
+import hashlib
 import os
 import random
-import hashlib
 
-from faker import Faker
 from dotenv import load_dotenv
+from faker import Faker
 
 from .models import (
-    Transaction, TransactionType, TransactionStatus,
-    MerchantCategory, GeoLocation,
+    GeoLocation,
+    MerchantCategory,
+    Transaction,
+    TransactionStatus,
+    TransactionType,
 )
 
 load_dotenv()

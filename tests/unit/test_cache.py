@@ -1,5 +1,6 @@
 """Unit tests for Redis cache layer using real Redis DB 1."""
 import pytest
+
 from generator.cache import CacheManager
 
 
@@ -27,8 +28,9 @@ class TestDeduplication:
 
     def test_mark_seen_sets_ttl(self, cache, sample_transaction):
         cache.mark_seen(sample_transaction.transaction_id)
-        import redis as redis_lib
         import os
+
+        import redis as redis_lib
         r = redis_lib.Redis(
             host=os.environ.get("REDIS_HOST", "localhost"),
             port=int(os.environ.get("REDIS_PORT", 6379)),

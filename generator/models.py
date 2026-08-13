@@ -1,9 +1,10 @@
 from __future__ import annotations
+
+import uuid
 from datetime import datetime, timezone
 from enum import Enum
-from typing import Optional
+
 from pydantic import BaseModel, Field
-import uuid
 
 
 class TransactionType(str, Enum):
@@ -71,9 +72,9 @@ class Transaction(BaseModel):
     is_international: bool = False
     is_high_value: bool = False
     is_suspicious: bool = False
-    fraud_score: Optional[float] = None
+    fraud_score: float | None = None
 
     # Metadata
     channel: str = "POS"        # POS | ATM | ONLINE | MOBILE
-    device_fingerprint: Optional[str] = None
-    ip_address: Optional[str] = None
+    device_fingerprint: str | None = None
+    ip_address: str | None = None

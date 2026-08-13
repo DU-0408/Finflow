@@ -1,6 +1,7 @@
 """Integration tests for the Fraud Detection Service (:8001)."""
-import pytest
 import json
+
+import pytest
 
 
 @pytest.mark.integration

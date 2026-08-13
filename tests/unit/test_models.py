@@ -1,8 +1,12 @@
 """Unit tests for Pydantic data models."""
 import pytest
+
 from generator.models import (
-    Transaction, TransactionType, TransactionStatus,
-    MerchantCategory, GeoLocation,
+    GeoLocation,
+    MerchantCategory,
+    Transaction,
+    TransactionStatus,
+    TransactionType,
 )
 
 

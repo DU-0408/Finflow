@@ -1,7 +1,9 @@
 """Integration tests for the API Gateway (:8000)."""
-import pytest
 import json
 from unittest.mock import patch
+
+import pytest
+
 
 @pytest.fixture(autouse=True)
 def mock_http():

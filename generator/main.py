@@ -8,15 +8,15 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import time
-import signal
 import logging
+import signal
+import time
 
 from dotenv import load_dotenv
 from prometheus_client import Counter, start_http_server
 
-from .factory   import TransactionFactory
-from .producers import KinesisProducer, APIProducer, LocalProducer, DualProducer
+from .factory import TransactionFactory
+from .producers import APIProducer, DualProducer, KinesisProducer, LocalProducer
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
