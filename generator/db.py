@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import logging
 import os
 
@@ -42,6 +43,19 @@ class DatabaseManager:
         if self.pool:
             self.pool.closeall()
         logger.info("PostgreSQL disconnected.")
+
+    @contextlib.contextmanager
+    def get_connection(self):
+        """Context manager for safely acquiring and releasing a connection from the pool."""
+        conn = self.pool.getconn()
+        try:
+            yield conn
+        finally:
+            if self.pool:
+                try:
+                    self.pool.putconn(conn)
+                except Exception:
+                    pass
 
     def ping(self) -> bool:
         """Thread-safe connection check and reconnect."""
